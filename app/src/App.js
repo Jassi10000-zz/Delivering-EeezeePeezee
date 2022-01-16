@@ -32,7 +32,7 @@ const App = () => {
         data: geoJson
       },
       paint: {
-        'line-color': '#4a90e2',
+        'line-color': '#ff0d6a',
         'line-width': 6
   
       }
@@ -57,7 +57,7 @@ const App = () => {
     const destinations = []
 
     let map = tt.map({
-      key: process.env.TOMTOM_API_KEY,
+      key: process.env.REACT_APP_TOMTOM_API_KEY,
       container: mapElement.current,
       stylesVisibility: {
         trafficIncidents: true,
@@ -72,7 +72,7 @@ const App = () => {
       const popupOffset = {
         bottom: [0, -25]
       }
-      const popup = new tt.Popup({ offset: popupOffset }).setHTML('This is you!')
+      const popup = new tt.Popup({ offset: popupOffset }).setHTML('You are here !!')
       const element = document.createElement('div')
       element.className = 'marker'
 
@@ -99,7 +99,7 @@ const App = () => {
         return convertToPoints(destination)
       })
       const callParameters = {
-        key: process.env.REACT_APP_TOM_TOM_API_KEY,
+        key: process.env.REACT_APP_TOMTOM_API_KEY,
         destinations: pointsForDestinations,
         origins: [convertToPoints(origin)],
       }
@@ -132,7 +132,7 @@ const App = () => {
 
         ttapi.services
           .calculateRoute({
-            key: process.env.REACT_APP_TOM_TOM_API_KEY,
+            key: process.env.REACT_APP_TOMTOM_API_KEY,
             locations: sorted,
           })
           .then((routeData) => {
@@ -157,26 +157,29 @@ const App = () => {
       {map && (
         <div className="app">
           <div ref={mapElement} className="map" />
-          <div className="search-bar">
-            <h1>Where to?</h1>
-            <input
-              type="text"
-              id="longitude"
-              className="longitude"
-              placeholder="Put in Longitude"
-              onChange={(e) => {
-                setLongitude(e.target.value)
-              }}
-            />
-            <input
-              type="text"
-              id="latitude"
-              className="latitude"
-              placeholder="Put in latitude"
-              onChange={(e) => {
-                setLatitude(e.target.value)
-              }}
-            />
+          <div className="right-component">
+            <div className="search-bar">
+              <h2>Delivering EzeePzee</h2>
+              <h4>Enter the coordinates of location </h4>
+              <input
+                type="text"
+                id="longitude"
+                className="longitude"
+                placeholder="Enter the Longitude"
+                onChange={(e) => {
+                  setLongitude(e.target.value)
+                }}
+              />
+              <input
+                type="text"
+                id="latitude"
+                className="latitude"
+                placeholder="Enter the Latitude"
+                onChange={(e) => {
+                  setLatitude(e.target.value)
+                }}
+              />
+            </div>
           </div>
         </div>
       )}
